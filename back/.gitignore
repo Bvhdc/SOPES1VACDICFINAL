@@ -1,0 +1,33 @@
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# React
+/build/
+/dist/
+
+# Express
+/build/
+.env
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+/jspm_packages/
+/bower_components/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# IDE
+.idea/
