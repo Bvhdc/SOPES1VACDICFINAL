@@ -14,7 +14,7 @@ function App() {
   const [usuariosList,setUsuarios] = useState([]);
 
   const add = () => {
-    Axios.post("http://localhost:3001/create",{
+    Axios.post("http://192.168.49.2:30130/create",{
       username:username,
       password:password
     }).then(()=>{
@@ -30,7 +30,7 @@ function App() {
 }
 
   const getUsuarios = () => {
-    Axios.get("http://localhost:3001/usuarios").then((response)=>{
+    Axios.get("http://192.168.49.2:30130/usuarios").then((response)=>{
       setUsuarios(response.data);
     });
   }
@@ -43,7 +43,7 @@ function App() {
   }
 
   const update = ()=>{
-    Axios.put("http://localhost:3001/update",{
+    Axios.put("http://192.168.49.2:30130/update",{
       id:id,
       username:username,
       password:password,
@@ -56,7 +56,7 @@ function App() {
   const deleteUser = (val)=>{
 
   
-        Axios.delete(`http://localhost:3001/delete/${val.username}`).then((res)=>{
+        Axios.delete(`http://192.168.49.2:30130/delete/${val.username}`).then((res)=>{
           getUsuarios();
           limpiarCampos();
         
@@ -66,6 +66,14 @@ function App() {
 
     
   }
+
+  const getUser = (val)=>{
+    Axios.get(`http://192.168.49.2:30130/usuario/${username}`).then((res)=>{
+      setUsuarios(res.data)
+});
+
+
+}
   //getUsuarios();
 
   return (
@@ -73,7 +81,7 @@ function App() {
    
         <div className="card text-center">
       <div className="card-header">
-        Examen Final
+        Examen Final bhernandez201700672
       </div>
       <div className="card-body">
         <div className="input-group mb-3">
@@ -99,6 +107,7 @@ function App() {
           :<button className='btn btn-success' onClick={add}>Registrar</button>
         }
       <button className='btn btn-success' onClick={getUsuarios}>Update</button>
+      <button className='btn btn-success' onClick={getUser}>Search</button>
       </div>
     </div>
     <table class="table table-striped">

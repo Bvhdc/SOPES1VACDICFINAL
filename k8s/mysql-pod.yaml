@@ -1,22 +1,23 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: mysql-pod
-  labels:
-    name: mysql-pod
-    context: bhernandez201700672
+  name: mysql-deployment
 spec:
-  containers:
-    - name: mysql
-      image: mysql:latest
-      env:
-        - name: "MYSQL_USER"
-          value: "bhernandez201700672"
-        - name: "MYSQL_PASSWORD"
-          value: "bhernandez201700672"
-        - name: "MYSQL_DATABASE"
-          value: "bhernandez201700672"
-        - name: "MYSQL_ROOT_PASSWORD"
-          value: "bhernandez201700672"
-      ports:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: bvhdc/db-sopes:1.0
+        ports:
         - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: bhernandez201700672
+        

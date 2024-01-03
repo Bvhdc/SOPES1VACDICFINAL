@@ -3,7 +3,18 @@ const app = express();
 const mysql = require('mysql2');
 const cors = require("cors");
 
-app.use(cors());
+
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+  });
+
+app.use(cors({
+    origin: '*',  // Permitir solicitudes desde cualquier origen
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+  }));
 app.use(express.json())
 const db = mysql.createConnection({
     host:"mysql",
@@ -65,6 +76,20 @@ app.delete("/delete/:id",(req,res)=>{
             console.log(err);
         }else{
             res.send("usuario eliminado");
+        }
+    });
+
+
+
+});
+
+app.get("/usuario/:id",(req,res)=>{
+    const id = req.params.id
+    db.query('SELECT * FROM Usuarios WHERE username=?',[id],(err,result)=>{
+        if(err){
+            console.log(err);
+        }else{
+            res.send(result);
         }
     });
 
